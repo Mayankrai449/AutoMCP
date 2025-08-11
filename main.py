@@ -12,7 +12,6 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime, timedelta
 from utils import search_disaster_alerts
-import dedent
 
 # --- Load environment variables ---
 load_dotenv()
@@ -302,7 +301,7 @@ class RichToolDescription(BaseModel):
 
 # --- MCP Server Setup ---
 mcp = FastMCP(
-    "Location Monitoring Server",
+    "Automated Disaster Alert Monitoring",
     auth=SimpleBearerAuthProvider(TOKEN),
 )
 
@@ -313,19 +312,11 @@ async def validate() -> str:
 
 
 @mcp.tool
-async def about() -> dict[str, str]:
-    server_name = "Disaster Alert Automation MCP"
-    server_description = dedent("""
-    This MCP server is designed to assist with disaster alert monitoring and automation.
-    It provides tools to track, monitor, and schedule automated reports of a location for disaster alerts,
-    emergency notifications, weather warnings, and safety information and sends automated updates to emails.
-    """)
-
-    return {
-        "name": server_name,
-        "description": server_description
-    }
-
+async def about() -> dict:
+    return {"name": mcp.name,
+             "description": """This MCP server supercharges Puch AI with Automation for disaster alerts and live news monitoring of locations.
+             It provides tools to track, monitor, and schedule automated reports of a location for disaster alerts, emergency notifications, weather warnings, and safety information and sends automated updates to emails."""
+             }
 
 # --- Tool: Track Location Updates ---
 MONITORING_TRACKER_DESCRIPTION = RichToolDescription(
@@ -758,7 +749,7 @@ async def list_automations(
     return [TextContent(type="text", text=response_text)]
 
 async def main():
-    print("Starting Location Monitoring Server on http://0.0.0.0:8085")
+    print("Starting Disaster Alert MCP Server on http://0.0.0.0:8085")
     await mcp.run_async("streamable-http", host="0.0.0.0", port=8085)
 
 if __name__ == "__main__":
