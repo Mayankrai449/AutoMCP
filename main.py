@@ -12,6 +12,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime, timedelta
 from utils import search_disaster_alerts
+import dedent
 
 # --- Load environment variables ---
 load_dotenv()
@@ -309,6 +310,22 @@ mcp = FastMCP(
 @mcp.tool
 async def validate() -> str:
     return MY_NUMBER
+
+
+@mcp.tool
+async def about() -> dict[str, str]:
+    server_name = "Disaster Alert Automation MCP"
+    server_description = dedent("""
+    This MCP server is designed to assist with disaster alert monitoring and automation.
+    It provides tools to track, monitor, and schedule automated reports of a location for disaster alerts,
+    emergency notifications, weather warnings, and safety information and sends automated updates to emails.
+    """)
+
+    return {
+        "name": server_name,
+        "description": server_description
+    }
+
 
 # --- Tool: Track Location Updates ---
 MONITORING_TRACKER_DESCRIPTION = RichToolDescription(
