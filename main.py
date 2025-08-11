@@ -314,7 +314,7 @@ async def validate() -> str:
 @mcp.tool
 async def about() -> dict:
     return {"name": mcp.name,
-             "description": """This MCP server supercharges Puch AI with Automation for disaster alerts and live news monitoring of locations.
+             "description": """This MCP server supercharges Puch AI with Automation ⚡ for disaster alerts and live news monitoring of locations.
              It provides tools to track, monitor, and schedule automated reports of a location for disaster alerts, emergency notifications, weather warnings, and safety information and sends automated updates to emails."""
              }
 
